@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 def exact_solution(d, w0, t):
     "Defines the analytical solution to the under-damped harmonic oscillator problem above."
@@ -50,7 +51,7 @@ mu, k = 2*d, w0**2
 t_test = torch.linspace(0,1,300).view(-1,1)
 u_exact = exact_solution(d, w0, t_test)
 optimiser = torch.optim.Adam(pinn.parameters(),lr=1e-3)
-for i in range(15001):
+for i in tqdm(range(15001)):
     optimiser.zero_grad()
     
     # compute each term of the PINN loss function above
